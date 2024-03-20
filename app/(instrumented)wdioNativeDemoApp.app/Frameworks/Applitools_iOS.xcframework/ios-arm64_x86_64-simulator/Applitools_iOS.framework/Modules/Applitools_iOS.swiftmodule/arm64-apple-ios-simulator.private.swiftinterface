@@ -1,0 +1,106 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target arm64-apple-ios14.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-bare-slash-regex -module-name Applitools_iOS
+import AVFoundation
+@_exported import Applitools_iOS
+import Applitools_iOS_Private
+import Combine
+import CoreGraphics
+import Foundation
+import KeychainAccess
+import Swift
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc public protocol Scrollable {
+}
+extension UIKit.UIScrollView : Applitools_iOS.Scrollable {
+  @objc @_Concurrency.MainActor(unsafe) dynamic public func scrollContent(axis: UIKit.UIAxis = .both, overlap: CoreFoundation.CGFloat = 10, interval: Swift.UInt = 200, waitBeforeFirstScroll: Swift.Bool = false, didScroll: @escaping (UIKit.UIScrollView, @escaping (_ shouldContinue: Swift.Bool) -> ()) -> (), completion: @escaping ((any Swift.Error)?) -> ())
+}
+@objc public protocol Listable : Applitools_iOS.Scrollable {
+  @objc var visibleIndexPaths: [Foundation.IndexPath]? { get }
+  @objc var firstVisibleCell: UIKit.UIView? { get }
+  @objc func scrollListTo(indexPath: Foundation.IndexPath)
+}
+extension UIKit.UITableView : Applitools_iOS.Listable {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public var visibleIndexPaths: [Foundation.IndexPath]? {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func scrollListTo(indexPath: Foundation.IndexPath)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public var firstVisibleCell: UIKit.UIView? {
+    @objc get
+  }
+}
+extension UIKit.UICollectionView : Applitools_iOS.Listable {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public var visibleIndexPaths: [Foundation.IndexPath]? {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func scrollListTo(indexPath: Foundation.IndexPath)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public var firstVisibleCell: UIKit.UIView? {
+    @objc get
+  }
+}
+@objc public protocol Pinnable : Applitools_iOS.Scrollable {
+  @objc var maxPinnedHeaderHeight: CoreFoundation.CGFloat { get }
+}
+extension UIKit.UITableView : Applitools_iOS.Pinnable {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public var maxPinnedHeaderHeight: CoreFoundation.CGFloat {
+    @objc get
+  }
+}
+extension UIKit.UICollectionView : Applitools_iOS.Pinnable {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public var maxPinnedHeaderHeight: CoreFoundation.CGFloat {
+    @objc get
+  }
+}
+extension UIKit.UIWindow {
+  #if compiler(>=5.3) && $AsyncAwait
+  @objc @_Concurrency.MainActor dynamic public func captureScreenshot(with snapshotInfo: Applitools_iOS_Private.ApplitoolsSnapshotInfo, renderingInfo: [Swift.String : Any]) async -> [Applitools_iOS_Private.UFGCaptureScreenshotResult]
+  #endif
+  @objc(applitools_statusBarHeightFor:) @_Concurrency.MainActor(unsafe) public static func statusBarHeight(for orientation: UIKit.UIInterfaceOrientation) -> Foundation.NSNumber?
+  @objc(applitools_safeAreaInsetsFor:) @_Concurrency.MainActor(unsafe) public static func safeAreaInsets(for orientation: UIKit.UIInterfaceOrientation) -> Foundation.NSValue?
+  @objc(applitools_resolution) @_Concurrency.MainActor(unsafe) public static func resolution() -> Foundation.NSValue?
+  @objc(applitools_usesMinimumSafeAreas) @_Concurrency.MainActor(unsafe) public static var usesMinimumSafeAreas: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc(applitools_minimumSafeAreaInsets) @_Concurrency.MainActor(unsafe) public static var minimumSafeAreaInsets: Foundation.NSValue? {
+    @objc get
+  }
+  @objc @_Concurrency.MainActor dynamic public class func mostLikelyVisibleKeyWindow() -> UIKit.UIWindow?
+  @objc @_Concurrency.MainActor dynamic public func isUserWindow() -> Swift.Bool
+  @objc @_Concurrency.MainActor dynamic public func isSystem() -> Swift.Bool
+  @objc @_Concurrency.MainActor dynamic public func isVisible() -> Swift.Bool
+}
+@objc @_inheritsConvenienceInitializers final public class ApplitoolsFullpageScreenshotMaker : ObjectiveC.NSObject {
+  #if compiler(>=5.3) && $AsyncAwait
+  @_Concurrency.MainActor @objc final public class func screenshot(with window: UIKit.UIWindow, scrollRootElement: UIKit.UIScrollView?, topOverlap: Swift.Int, bottomOverlap: Swift.Int, maxHeight: Swift.Int, waitBeforeCapture: Swift.UInt, didCapturePart: ((CoreFoundation.CGRect) -> Swift.Void)?) async -> UIKit.UIImage
+  #endif
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class ApplitoolsKeychain : ObjectiveC.NSObject {
+  @objc @Applitools_iOS.ApplitoolsKeychain.KeychainBacked open var apiKey: Swift.String? {
+    @objc get
+    @objc set
+    _modify
+  }
+  @objc @Applitools_iOS.ApplitoolsKeychain.KeychainBacked open var serverURL: Swift.String? {
+    @objc get
+    @objc set
+    _modify
+  }
+  @objc @Applitools_iOS.ApplitoolsKeychain.KeychainBacked open var proxyURL: Swift.String? {
+    @objc get
+    @objc set
+    _modify
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc open class DeviceInfoProvider : ObjectiveC.NSObject {
+  @objc open class func deviceName(from model: Foundation.NSString) -> Foundation.NSString
+  @objc override dynamic public init()
+  @objc deinit
+}

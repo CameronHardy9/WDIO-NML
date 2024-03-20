@@ -1,0 +1,11 @@
+framework module Applitools_iOS {
+  umbrella header "Applitools_iOS.h"
+  export *
+
+  module * { export * }
+}
+
+module Applitools_iOS.Swift {
+  header "Applitools_iOS-Swift.h"
+  requires objc
+}

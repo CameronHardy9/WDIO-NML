@@ -1,3 +1,18 @@
+const { Eyes } = require('@applitools/eyes-webdriverio');
+
+// Set capabilities for NML - passed into capabilities config option for WDIO below
+const caps = Eyes.setMobileCapabilities({
+    platformName: "iOS",
+    maxInstances: 1,
+    "appium:deviceName": "iPad Pro (12.9-inch) (6th generation)",
+    "appium:platformVersion": "16.4",
+    "appium:orientation": "PORTRAIT",
+    "appium:automationName": "XCUITest",
+    "appium:app": "app/(instrumented)wdioNativeDemoApp.app",
+    "appium:newCommandTimeout": 240,
+},
+process.env.APPLITOOLS_API_KEY)
+
 exports.config = {
     //
     // ====================
@@ -5,7 +20,6 @@ exports.config = {
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
-    
     //
     // ==================
     // Specify Test Files
@@ -51,23 +65,8 @@ exports.config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
-    
-        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-        // grid with only 5 firefox instances available you can make sure that not more than
-        // 5 instances get started at a time.
-        maxInstances: 5,
-        //
-        browserName: 'chrome',
-        acceptInsecureCerts: true,
-        'goog:chromeOptions': {
-            args: ['--headless', '--disable-gpu']
-        }
-        // If outputDir is provided WebdriverIO can capture driver session logs
-        // it is possible to configure which logTypes to include/exclude.
-        // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-        // excludeDriverLogs: ['bugreport', 'server'],
-    }],
+    port: 4723,
+    capabilities: [caps],
     //
     // ===================
     // Test Configurations
@@ -75,7 +74,7 @@ exports.config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'error',
+    logLevel: 'debug',
     //
     // Set specific log levels per logger
     // loggers:
